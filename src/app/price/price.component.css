@@ -1,0 +1,30 @@
+
+.conteiner{
+    padding: 10px;
+    border: 2px solid blue;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.contPriceDay{
+    width: 10%;
+    padding: 10px;
+    margin-right: 10px;
+    border-style: groove;
+    border-radius: 10px;
+}
+
+.contPriceDay:hover
+{
+    transform: scale(1.1, 1.1);
+    background-color: #f0ffff;
+    box-shadow: 5px 5px 10px grey;
+}
+
+.contPriceDay > p{
+    padding: 3px;
+    font-size: 50%;
+    text-align: center;
+}

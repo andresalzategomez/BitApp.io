@@ -1,15 +1,17 @@
 const { app, BrowserWindow } = require("electron");
+var Positioner = require('electron-positioner');
+var positioner = new Positioner(BrowserWindow);
 
 let appWindow;
 
 createWindow = () => {
     appWindow = new BrowserWindow({
         width: 500,
-        x: 600,
-        y: 0,
+        
         height: 600,
         title: "BitApp",
         resizable: false,
+        
         webPreferences: {
             contextIsolation: false,
             nodeIntegration: true
@@ -27,7 +29,9 @@ createWindow = () => {
     });
 }
 
-app.on("ready", createWindow);
+
+app.on("ready", createWindow, () =>{positioner.move('rightCenter')});
+
 
 app.on("window-all-closed", () => {
     if (process.platform !== "darwin") {
