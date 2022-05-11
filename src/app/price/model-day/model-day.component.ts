@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Price } from '../price.model';
 import { PriceService } from '../price.service';
 
+const monthNumber = new Date().toLocaleString("en-US", { month: "2-digit" });
+
 
 @Component({
   selector: 'app-model-day',
@@ -9,9 +11,6 @@ import { PriceService } from '../price.service';
   styleUrls: ['./model-day.component.css']
 })
 export class ModelDayComponent implements OnInit{
-
-  @Input() price:Price;
-  @Input() states:String;
   display:String;
   MonthModel:String;
   dayModel: String;
@@ -31,13 +30,13 @@ export class ModelDayComponent implements OnInit{
     this.MonthModel = day.monthName;
     this.dayModel = day.day;
     this.priceUSDModel = day.amount;
-    this.priceService.loadPrice(day.day, "COP")
+    this.priceService.loadPriceApi(day.day, "COP", monthNumber)
     .subscribe( 
       (price) => {
         this.priceCOPModel = parseInt(price.data.amount);
       }
     );
-    this.priceService.loadPrice(day.day, "EUR")
+    this.priceService.loadPriceApi(day.day, "EUR", monthNumber)
     .subscribe( 
       (price) => {
         this.priceEURModel = parseInt(price.data.amount);

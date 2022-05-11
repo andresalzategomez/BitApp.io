@@ -1,12 +1,10 @@
-import { JsonPipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModelDayComponent } from './model-day/model-day.component';
 import { Price } from './price.model';
 import { PriceService } from './price.service';
 
-let dateDay = new Date();
-let today = dateDay.getDate();
-const monthName = dateDay.toLocaleString("en-US", { month: "long" });
+let today = new Date().getDate();
+const monthNumber = new Date().toLocaleString("en-US", { month: "2-digit" });
 
 @Component({
   selector: 'app-price',
@@ -14,29 +12,28 @@ const monthName = dateDay.toLocaleString("en-US", { month: "long" });
   styleUrls: ['./price.component.css']
 })
 export class PriceComponent implements OnInit {
-  price:Price[] = [];
   
+  price:Price[] = [];
+  priceToday:Price;
+  sItv:any;
   @ViewChild(ModelDayComponent) modelDayC:ModelDayComponent;
 
   constructor(private priceSerivice: PriceService) { }
 
   ngOnInit(): void {
-    for (let i = 0; i < 14; i++) {
-        this.loadPrices(String(today - i))
+    //this.priceToday = this.priceSerivice.loadPriceToday(String(today));
+    //console.log(this.priceToday);
+    for (let i = 0; i < 11; i++) {
+      this.price = this.priceSerivice.loadPrices(String(today - i), String(monthNumber))
     }
-    console.log(this.price);
+    this.sItv = setInterval(() => {
+      this.contador(); 
+    }, 5000);
+  }
+   contador(){
+    this.price = this.priceSerivice.loadPriceToday(String(today));
   }
   
-  loadPrices(day:String)
-  {
-    this.priceSerivice.loadPrice(day, "USD")
-    .subscribe( 
-      (price) => {
-        this.price.push(new Price(price.data.amount, price.data.base, price.data.currency, day, monthName));
-      }
-    );
-  }
-
   activeModel(day: Price){
     this.modelDayC.openDay("block", day);
   } 

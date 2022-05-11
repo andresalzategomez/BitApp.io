@@ -1,8 +1,7 @@
 <div class="conteiner" >
     <div class="contPriceDay" *ngFor="let prices of price" (click)="activeModel(prices)">
-        <p><b>{{prices.monthName}}</b></p>
-        <p><b>{{prices.day}}</b></p>
-        <p>{{prices.amount}}</p>
+        <p><b>{{prices.monthName + " " + prices.day}}</b></p>
+        <p>{{prices.amount | currency:'USD ':'symbol':'1.2-2'}}</p>
     </div>
 </div>
 <app-model-day>

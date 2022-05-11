@@ -3,8 +3,7 @@
   <div class="modal-content">
     <span class="close" (click)="changeState('none')">&times;</span>
     <img src="../../../assets/bitcoin.png" alt="Bitcoin" class="bitcoinLogo">
-    <p>{{MonthModel}}</p>
-    <p>{{dayModel}}</p>
+    <p>{{MonthModel + " " + dayModel}}</p>
     <p>{{priceUSDModel | currency:'USD ':'symbol':'1.2-2'}}</p>
     <p>{{priceCOPModel | currency:'COP ':'symbol':'1.2-2'}}</p>
     <p>{{priceEURModel | currency:'EUR ':'symbol':'1.2-2'}}</p>
