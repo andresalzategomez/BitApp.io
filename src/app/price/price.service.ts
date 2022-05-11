@@ -8,7 +8,7 @@ export class PriceService {
 
   constructor(private apiService: ApiService) { }
   
-  loadPrice(day:String){
-    return this.apiService.consumeApi(day)
+  loadPrice(day:String, currency:String){
+    return this.apiService.consumeApi(day, currency)
   }
 }

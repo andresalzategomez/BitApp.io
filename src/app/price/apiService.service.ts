@@ -9,9 +9,7 @@ export class ApiService{
 
   constructor(private httpClient: HttpClient){}
 
-  consumeApi(day:String):Observable<any>{
-    console.log(day);
-    
-    return this.httpClient.get('https://api.coinbase.com/v2/prices/BTC-USD/spot?date=2022-04-' + day);
+  consumeApi(day:String, currency:String):Observable<any>{
+    return this.httpClient.get('https://api.coinbase.com/v2/prices/BTC-'+currency+'/spot?date=2022-04-' + day);
   }
 } 

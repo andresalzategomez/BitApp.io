@@ -1,5 +1,6 @@
 import { JsonPipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModelDayComponent } from './model-day/model-day.component';
 import { Price } from './price.model';
 import { PriceService } from './price.service';
 
@@ -14,10 +15,13 @@ const monthName = dateDay.toLocaleString("en-US", { month: "long" });
 })
 export class PriceComponent implements OnInit {
   price:Price[] = [];
+  
+  @ViewChild(ModelDayComponent) modelDayC:ModelDayComponent;
+
   constructor(private priceSerivice: PriceService) { }
 
   ngOnInit(): void {
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 14; i++) {
         this.loadPrices(String(today - i))
     }
     console.log(this.price);
@@ -25,7 +29,7 @@ export class PriceComponent implements OnInit {
   
   loadPrices(day:String)
   {
-    this.priceSerivice.loadPrice(day)
+    this.priceSerivice.loadPrice(day, "USD")
     .subscribe( 
       (price) => {
         this.price.push(new Price(price.data.amount, price.data.base, price.data.currency, day, monthName));
@@ -34,6 +38,6 @@ export class PriceComponent implements OnInit {
   }
 
   activeModel(day: Price){
-    
-  }
+    this.modelDayC.openDay("block", day);
+  } 
 }

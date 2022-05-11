@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { PriceComponent } from './price/price.component';
 import { PriceService } from './price/price.service';
 import { HttpClientModule } from '@angular/common/http';
-import { ModelDayComponent } from './model-day/model-day.component';
+import { ModelDayComponent } from './price/model-day/model-day.component';
 
 @NgModule({
   declarations: [
