@@ -95,4 +95,22 @@ export class PriceService {
     }
     return priceArray;
   }
+
+  async isOnline(){
+    let onlineS:boolean = true;
+    await fetch('https://api.coinbase.com/v2/prices/BTC-COP/spot')
+        .then(function (response) {
+           onlineS = true;
+          return response;
+        })
+        .then(function (response) {
+          onlineS = true;
+        })
+        .catch(function (error) {
+          // console.log('Problema al realizar la solicitud: ' + error.message);
+          onlineS = false;
+        })
+        ;
+        return onlineS;
+  }
 }

@@ -32,18 +32,26 @@ export class ModelDayComponent implements OnInit{
     this.MonthModel = this.priceService.convertMonth(day.monthName);
     this.dayModel = day.day;
     this.priceUSDModel = day.amount;
-    this.priceService.loadPriceApi(day.day, "COP", day.monthName)
-    .subscribe( 
-      (price) => {
-        this.priceCOPModel = parseInt(price.data.amount);
-      }
-    );
-    this.priceService.loadPriceApi(day.day, "EUR", day.monthName)
-    .subscribe( 
-      (price) => {
-        this.priceEURModel = parseInt(price.data.amount);
-      }
-    );
+
+    let ArrayCop:Price[] = JSON.parse(localStorage.getItem('priceCOP') || '');
+    let ArrayEUR:Price[] = JSON.parse(localStorage.getItem('priceEUR') || '');
+    this.priceCOPModel = parseInt(String(ArrayCop.find(element => element.day = day.day)?.amount));
+    this.priceEURModel = parseInt(String(ArrayEUR.find(element => element.day = day.day)?.amount));
+    
+    // this.priceEURModel = parseInt(ArrayEUR.data.amount);
+    
+    // this.priceService.loadPriceApi(day.day, "COP", day.monthName)
+    // .subscribe( 
+    //   (price) => {
+    //     this.priceCOPModel = parseInt(price.data.amount);
+    //   }
+    // );
+    // this.priceService.loadPriceApi(day.day, "EUR", day.monthName)
+    // .subscribe( 
+    //   (price) => {
+    //     this.priceEURModel = parseInt(price.data.amount);
+    //   }
+    // );
 
   }
 

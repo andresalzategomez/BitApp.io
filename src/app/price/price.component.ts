@@ -29,22 +29,7 @@ export class PriceComponent implements OnInit {
   constructor(private priceSerivice: PriceService) {}
 
  async ngOnInit() {
-    let onlineS = true;
-    
-      await fetch('https://api.coinbase.com/v2/prices/BTC-COP/spot')
-        .then(function (response) {
-           onlineS = true;
-          return response;
-        })
-        .then(function (response) {
-          onlineS = true;
-        })
-        .catch(function (error) {
-          console.log('Problema al realizar la solicitud: ' + error.message);
-          onlineS = false;
-        });
-
-    if (onlineS) {
+    if (Boolean(this.isOnline())) {
       this.priceUSD = this.loadVector('USD', this.priceUSD);
       this.priceCOP = this.loadVector('COP', this.priceCOP);
       this.priceEUR = this.loadVector('EUR', this.priceEUR);
@@ -58,10 +43,11 @@ export class PriceComponent implements OnInit {
         this.loadCurrentPrice();
       }, 6000);
     } else {
+      alert("Sin Conexión a internet")
       this.priceUSD = JSON.parse(localStorage.getItem('priceUSD') || '');
       this.priceCOP = JSON.parse(localStorage.getItem('priceCOP') || '');
       this.priceEUR = JSON.parse(localStorage.getItem('priceEUR') || '');
-      console.log(this.priceUSD, this.priceCOP);
+      
     }
   }
 
@@ -113,5 +99,9 @@ export class PriceComponent implements OnInit {
 
   convertMonth(month: String) {
     return this.priceSerivice.convertMonth(month);
+  }
+
+  isOnline(){
+    return this.priceSerivice.isOnline();    
   }
 }
