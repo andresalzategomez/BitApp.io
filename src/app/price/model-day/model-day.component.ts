@@ -2,7 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Price } from '../price.model';
 import { PriceService } from '../price.service';
 
-const monthNumber = new Date().toLocaleString("en-US", { month: "2-digit" });
+const currentMonth = new Date().toLocaleString("en-US", { month: "2-digit" });
+let lastDay = new Date(2022,Number(currentMonth)-1, 0).getDate();
 
 
 @Component({
@@ -17,6 +18,7 @@ export class ModelDayComponent implements OnInit{
   priceUSDModel: number;
   priceCOPModel: number;
   priceEURModel: number;
+  vector:Price[] = [];
 
   ngOnInit(): void {
     this.display = "none";
@@ -27,16 +29,16 @@ export class ModelDayComponent implements OnInit{
 
   openDay(state:String, day:Price){
     this.changeState(state);
-    this.MonthModel = day.monthName;
+    this.MonthModel = this.priceService.convertMonth(day.monthName);
     this.dayModel = day.day;
     this.priceUSDModel = day.amount;
-    this.priceService.loadPriceApi(day.day, "COP", monthNumber)
+    this.priceService.loadPriceApi(day.day, "COP", day.monthName)
     .subscribe( 
       (price) => {
         this.priceCOPModel = parseInt(price.data.amount);
       }
     );
-    this.priceService.loadPriceApi(day.day, "EUR", monthNumber)
+    this.priceService.loadPriceApi(day.day, "EUR", day.monthName)
     .subscribe( 
       (price) => {
         this.priceEURModel = parseInt(price.data.amount);

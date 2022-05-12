@@ -8,7 +8,7 @@ export class ApiService{
 
   constructor(private httpClient: HttpClient){}
 
-  consumeApi(day:String, currency:String, month:String):Observable<any>{
+   consumeApi(day:String, currency:String, month:String):Observable<any>{
     if(month === "0")
     {
       return this.httpClient.get('https://api.coinbase.com/v2/prices/BTC-'+currency+'/spot');

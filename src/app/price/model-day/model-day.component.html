@@ -3,10 +3,10 @@
   <div class="modal-content">
     <span class="close" (click)="changeState('none')">&times;</span>
     <img src="../../../assets/bitcoin.png" alt="Bitcoin" class="bitcoinLogo">
-    <p>{{MonthModel + " " + dayModel}}</p>
-    <p>{{priceUSDModel | currency:'USD ':'symbol':'1.2-2'}}</p>
-    <p>{{priceCOPModel | currency:'COP ':'symbol':'1.2-2'}}</p>
-    <p>{{priceEURModel | currency:'EUR ':'symbol':'1.2-2'}}</p>
+    <p class="modalDay"><b class="modalDay"> {{MonthModel + " " + dayModel}}</b></p>
+    <p class="amountDay">{{priceUSDModel | currency:'USD ':'symbol':'1.2-2'}}</p>
+    <p class="amountDay">{{priceCOPModel | currency:'COP ':'symbol':'1.2-2'}}</p>
+    <p class="amountDay">{{priceEURModel | currency:'EUR ':'symbol':'1.2-2'}}</p>
   </div>
 
 </div>

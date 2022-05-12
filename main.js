@@ -11,6 +11,8 @@ createWindow = () => {
         height: 600,
         title: "BitApp",
         resizable: false,
+        alwaysOnTop: true,
+        hasShadow: true,
         
         webPreferences: {
             contextIsolation: false,

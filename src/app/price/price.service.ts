@@ -14,31 +14,54 @@ export class PriceService {
   priceToday:Price;
   constructor(private apiService: ApiService) { }
 
-  loadPrices(day:String, month:String)
+  loadPrices(day:String, month:String, currency:String, priceObj:Price[])
   {
-    this.loadPriceApi(day, "USD", month)
+    this.price = priceObj;
+
+    this.loadPriceApi(day, currency, month)
     .subscribe( 
-      (price) => {
-        this.price.push(new Price(price.data.amount, price.data.base, price.data.currency, day, monthName));
+    (price) => {
+      this.price.push(new Price(price.data.amount, price.data.base, price.data.currency, day, month));
+      },
+      error => {
+        // this.price = JSON.parse(localStorage.getItem('priceUSD'+currency)||"");  
       }
-    );
+      );
+      this.price = this.price.sort((a, b) => {
+        if(a.day > b.day){
+          return 1;
+        }
+        return -1;
+      })
+      console.log(this.price);
+      
     return this.price;
   }
 
-  loadPriceToday(day:String)
+  loadPriceToday(day:String, currency:String, priceObj:Price[], month:String)
   {
-    this.loadPriceApi(day, "USD", "0")
+    this.price = priceObj;
+    this.loadPriceApi(day, currency, "0")
     .subscribe( 
       (price) => {
-        this.price[0] = (new Price(price.data.amount, price.data.base, price.data.currency, day, monthName));
+        this.price[0] = (new Price(price.data.amount, price.data.base, price.data.currency, day, month));
+      },
+      error => {
+        // this.price = JSON.parse(localStorage.getItem('priceUSD'+currency)||"");
       }
     );
     return this.price;
   }
   
+
   loadPriceApi(day:String, currency:String, month:String){
     return this.apiService.consumeApi(day, currency, month)
   }
 
+  convertMonth(month:String){
+    let months = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
+    return months[Number(month)-1];
+  }
   
 }
+

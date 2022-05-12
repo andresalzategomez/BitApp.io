@@ -1,31 +1,46 @@
 
-.conteiner{
+.container{
     padding: 10px;
-    border: 2px solid blue;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     flex-wrap: wrap;
 }
 
+.tittleContainer{
+    width: 100%;
+    background-color: rgb(255, 148, 22);
+    margin-bottom: 2%;
+    font-size: 25px;
+    text-align: center;
+    border-bottom: 3px solid rgb(255, 148, 22);
+}
+
 .contPriceDay{
     width: 80%;
     padding: 10px;
-    border-style: groove;
-    border-radius: 10px;
+    border-bottom: 1px solid white;
     margin: auto;
     margin-top: 10px;
 }
 
 .contPriceDay:hover
 {
-    transform: scale(1.1, 1.1);
-    background-color: #f0ffff;
-    box-shadow: 5px 5px 10px grey;
+    transform: scale(1.3, 1.3);
+    border-radius: 10px;
+    margin-top: 1px solid #dcd9f8;
+    cursor: pointer;
+    color: rgb(255, 148, 22);
+    font-style: oblique;
+    font-weight: bold;
 }
 
-.contPriceDay > p{
+.contPriceDay > p, .contPriceDay > b {
     padding: 3px;
-    font-size: 50%;
+    font-size: 80%;
     text-align: center;
+}
+
+.contPriceDay > p:hover, .contPriceDay > p>b:hover {
+    color: rgb(255, 148, 22);
 }
