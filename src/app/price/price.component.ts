@@ -21,22 +21,48 @@ export class PriceComponent implements OnInit {
   priceEUR: Price[] = [];
   priceToday: Price;
   sItv: any;
+
   @ViewChild(ModelDayComponent) modelDayC: ModelDayComponent;
+
+  public netStatus: string;
 
   constructor(private priceSerivice: PriceService) {}
 
-  ngOnInit() {
-    this.priceUSD = this.loadVector('USD', this.priceUSD);
-    this.priceCOP = this.loadVector('COP', this.priceCOP);
+ async ngOnInit() {
+    let onlineS = true;
+    
+      await fetch('https://api.coinbase.com/v2/prices/BTC-COP/spot')
+        .then(function (response) {
+           onlineS = true;
+          return response;
+        })
+        .then(function (response) {
+          onlineS = true;
+        })
+        .catch(function (error) {
+          console.log('Problema al realizar la solicitud: ' + error.message);
+          onlineS = false;
+        });
 
-    setTimeout(() => {
-      this.priceUSD = this.orderVector(this.priceUSD, currentMonth);
-      this.loadCurrentPrice();
-    }, 1000);
+    if (onlineS) {
+      this.priceUSD = this.loadVector('USD', this.priceUSD);
+      this.priceCOP = this.loadVector('COP', this.priceCOP);
+      this.priceEUR = this.loadVector('EUR', this.priceEUR);
 
-    this.sItv = setInterval(() => {
-      this.loadCurrentPrice();
-    }, 6000);
+      setTimeout(() => {
+        this.priceUSD = this.orderVector(this.priceUSD, currentMonth);
+        this.loadCurrentPrice();
+      }, 1000);
+  
+      this.sItv = setInterval(() => {
+        this.loadCurrentPrice();
+      }, 6000);
+    } else {
+      this.priceUSD = JSON.parse(localStorage.getItem('priceUSD') || '');
+      this.priceCOP = JSON.parse(localStorage.getItem('priceCOP') || '');
+      this.priceEUR = JSON.parse(localStorage.getItem('priceEUR') || '');
+      console.log(this.priceUSD, this.priceCOP);
+    }
   }
 
   loadVector(currency: String, arrayPrice: Price[]) {
@@ -70,10 +96,11 @@ export class PriceComponent implements OnInit {
 
     this.saveLocalStorage('priceUSD', this.priceUSD);
     this.saveLocalStorage('priceCOP', this.priceCOP);
+    this.saveLocalStorage('priceEUR', this.priceEUR);
   }
 
   orderVector(priceArray: Price[], currentMonth: string) {
-    return (this.priceSerivice.orderVector(priceArray, currentMonth));
+    return this.priceSerivice.orderVector(priceArray, currentMonth);
   }
 
   activeModel(day: Price) {
