@@ -1,3 +1,4 @@
+// Objeto de información del bitcoin
 export class Price {
   constructor(
     public amount: number,

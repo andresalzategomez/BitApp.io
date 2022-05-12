@@ -1,4 +1,4 @@
-<div class="container" >
+<div class="container">
     <div class="tittleContainer">Bitcoin de los últimos 15 días</div>
     <div class="contPriceDay" *ngFor="let prices of priceUSD " (click)="activeModel(prices)">
         <p><b>{{convertMonth(prices.monthName) + " " + prices.day}}</b></p>
