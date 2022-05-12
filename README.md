@@ -1,27 +1,48 @@
-# BitApp
+# Prueba Técnica Tekus
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.3.
+## Contents
 
-## Development server
+- [REPO](https://github.com/andresalzategomez/BitApp.io.git)
+- [Description](#description)
+- [Usage](#usage)
+  - [Run Project ](#run-project)
+- [Requirements](#requirements)
+- [API](#api)
+  - [Marvel API](#marvel-api)
+- [Capas de la Aplicación](#Capas-de-la-Aplicación)
+  - [Capa de Aplicación](#Capa-de-Aplicación)
+  - [Capa de Persistencia](#Capa-de-Persistencia)
+  - [Capa de Modelo](#Capa-de-Modelo)
+  - [Capa de Servicio](#Capa-de-Servicio)
+  - [Capa de Vista](#Capa-de-Vista)
+- [License](#license)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Description
 
-## Code scaffolding
+Este proyecto está realizado en Angular y ElectronJS para la prueba ténica de Tekus. Se consume la API de CoinBase y se muestra el precio del BitCoin en las monedas: USD, COP y EUR, permitiendo ver la información aún cuándo no hay conexión a internet por medio del LocalStorage.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Usage
 
-## Build
+### Run Project
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Se descarga el Repositorio y se abre Visual Studio code.
+- Luego se ejecuta el comando "npm i"
+- Luego se debe ejecutra "ng build --prod --aot" para desplegar la aplicación y crear la carpeta "dist" (Esto se hace para ejecutar el ElectronJS)
+- por último se ejecuta el comando "npm start"
 
-## Running unit tests
+## Requirements
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Seguir cada uno de los pasos anteriores.
 
-## Running end-to-end tests
+## API
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### CoinBase API
 
-## Further help
+Se consume la API de CoinBase con las siguientes URL:
+- valor de hoy "https://api.coinbase.com/v2/prices/BTC-EUR/spot"
+- valor de un día en específico "https://api.coinbase.com/v2/prices/BTC-EUR/spot?date=2022-05-11"
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## License
+
+The JavaScript Templates script is released under the
+[MIT license](https://opensource.org/licenses/MIT).
