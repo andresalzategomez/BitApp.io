@@ -27,13 +27,6 @@ export class PriceService {
         // this.price = JSON.parse(localStorage.getItem('priceUSD'+currency)||"");  
       }
       );
-      this.price = this.price.sort((a, b) => {
-        if(a.day > b.day){
-          return 1;
-        }
-        return -1;
-      })
-      console.log(this.price);
       
     return this.price;
   }

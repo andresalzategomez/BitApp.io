@@ -6,7 +6,7 @@ import { PriceService } from './price.service';
 let today = new Date().getDate();
 let date = new Date();
 
-const currentMonth = new Date().toLocaleString('en-US', { month: '2-digit' });
+const currentMonth = new Date().toLocaleString('en-US', { month: 'numeric' });
 var monthLoad = 0;
 let lastDay = new Date(2022, Number(currentMonth) - 1, 0).getDate();
 
@@ -42,20 +42,45 @@ export class PriceComponent implements OnInit {
       dayLoad -= 1;
     }
 
+    setTimeout(() => {
+      this.priceUSD = this.orderVector(this.priceUSD);
+  }, 1000);
+
     this.sItv = setInterval(() => {
-      this.contador();
-    }, 10000);
+      this.loadAllPrice();
+    }, 3000);
   }
 
-  contador() {
+  loadAllPrice() {
     this.priceUSD = this.priceSerivice.loadPriceToday(
       String(today),
       'USD',
       this.priceUSD,
-      String(monthLoad)
+      String(currentMonth)
     );
 
     this.loadLocalStorage();
+  }
+
+  orderVector(priceArray: Price[]) {
+    var currentMonthArray:Price[]=[];
+    var prevMonthArray:Price[]=[];
+    for (let i = 0; i < priceArray.length; i++) {
+      if(priceArray[i].monthName === currentMonth)
+      {
+      currentMonthArray.push(priceArray[i]);
+      }else{
+      prevMonthArray.push(priceArray[i]);
+      }
+    }
+    priceArray = currentMonthArray.sort((a, b) => {
+      return Number(b.day) - Number(a.day);
+    });
+    for (let i = 0; i < prevMonthArray.length; i++) {
+      priceArray.push(prevMonthArray[i]);
+    }
+    return priceArray;
+    
   }
 
   activeModel(day: Price) {
