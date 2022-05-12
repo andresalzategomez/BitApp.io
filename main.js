@@ -7,6 +7,7 @@ let appWindow;
 createWindow = () => {
     appWindow = new BrowserWindow({
         width: 350,
+        x: 400,
         
         height: 600,
         title: "BitApp",
